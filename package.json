@@ -1,0 +1,39 @@
+{
+  "name": "dev-deps",
+  "version": "0.0.1",
+  "description": "dev-deps",
+  "main": "index.js",
+  "type": "module",
+  "sideEffects": false,
+  "scripts": {
+    "start": "webpack serve --config webpack_configs/webpack.config.js --mode development",
+    "build": "webpack --config webpack_configs/production.webpack.config.js --mode production",
+    "test": "node --test --test-reporter dot",
+    "test:verbose": "node --test",
+    "style": "npx eslint . -c linters/eslint.config.js",
+    "style:fix": "npx eslint . -c linters/eslint.config.js --fix",
+    "style2": "npx stylelint --config linters/.stylelintrc.json \"src/**/*.css\"",
+    "style2:fix": "npx stylelint --config linters/.stylelintrc.json \"src/**/*.css\" --fix",
+    "updates": "npx ncu",
+    "updates:fix": "npx ncu -u && npm install && npm audit fix"
+  },
+  "dependencies": {
+    "@stylistic/eslint-plugin": "^5.2.3",
+    "copy-webpack-plugin": "^13.0.1",
+    "css-loader": "^7.1.2",
+    "css-minimizer-webpack-plugin": "^7.0.2",
+    "eslint": "^9.33.0",
+    "globals": "^16.3.0",
+    "html-inline-css-webpack-plugin": "^1.11.2",
+    "html-webpack-plugin": "^5.6.4",
+    "mini-css-extract-plugin": "^2.9.4",
+    "npm-check-updates": "^18.0.2",
+    "stylelint": "^16.23.1",
+    "stylelint-config-standard": "^39.0.0",
+    "terser-webpack-plugin": "^5.3.14",
+    "webpack": "^5.101.3",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.2",
+    "workbox-webpack-plugin": "^7.3.0"
+  }
+}
