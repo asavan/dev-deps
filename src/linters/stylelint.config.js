@@ -3,4 +3,4 @@ export default {
     "rules": {
         "media-feature-range-notation": "prefix"
     }
-}
+};
