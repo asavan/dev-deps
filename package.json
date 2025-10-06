@@ -9,8 +9,6 @@
   "scripts": {
     "start": "webpack serve --config src/webpack_configs/webpack.config.js --mode development",
     "build": "webpack --config src/webpack_configs/production.webpack.config.js --mode production",
-    "test": "node --test --test-reporter dot",
-    "test:verbose": "node --test",
     "style": "npx eslint . -c src/linters/eslint.config.js",
     "style:fix": "npx eslint . -c src/linters/eslint.config.js --fix",
     "style2": "npx stylelint --config src/linters/stylelint.config.js \"src/**/*.css\"",
