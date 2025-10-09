@@ -55,7 +55,7 @@ const prodConfig = (version, dirname, extraContent) => {
             }),
             new InjectManifest({
                 swDest: "sw.js",
-                swSrc: path.resolve(depsDirname, "./src/sw.js"),
+                swSrc: path.resolve(depsDirname, "../sw.js"),
                 exclude: [
                     /index\.html$/,
                     /CNAME$/,
@@ -67,7 +67,7 @@ const prodConfig = (version, dirname, extraContent) => {
             new CopyPlugin({
                 patterns: [
                     { from: "./src/images", to: "./images" },
-                    { from: path.resolve(depsDirname, "./github"), to: "./" },
+                    { from: path.resolve(depsDirname, "../../github"), to: "./" },
                     { from: "./src/app.webmanifest", to: "./" },
                     { from: "./.well-known", to: "./.well-known" },
                     ...additionCopy
