@@ -19,9 +19,10 @@ function getLocalExternalIP(defaultAddr) {
     return cand.slice(-1)[0];
 }
 
-const devConfig = () => {
+const devConfig = (extraContent) => {
     console.log(getLocalExternalIP("0.0.0.0"));
     const addr = "0.0.0.0";
+    const additionCopy = extraContent || [];
     return {
         entry: {main: ["./src/index.js", "./src/css/style.css"]},
         module: {
@@ -36,8 +37,9 @@ const devConfig = () => {
         },
         plugins: [
             new HtmlWebpackPlugin({
-                template: "./src/index.html",
                 minify: false,
+                scriptLoading: "module",
+                template: "./src/index.html"
             }),
             new MiniCssExtractPlugin({
                 filename: "[name].css"
@@ -49,7 +51,8 @@ const devConfig = () => {
                 patterns: [
                     { from: "./src/images", to: "./images" },
                     { from: "./src/app.webmanifest", to: "./" },
-                    { from: "./.well-known", to: "./.well-known" }
+                    { from: "./.well-known", to: "./.well-known" },
+                    ...additionCopy
                 ],
             })
         ],

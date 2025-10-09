@@ -45,8 +45,9 @@ const prodConfig = (version, dirname, extraContent) => {
                 filename: "[name].[contenthash].css"
             }),
             new HtmlWebpackPlugin({
-                template: "./src/index.html",
-                minify: false
+                minify: false,
+                scriptLoading: "module",
+                template: "./src/index.html"
             }),
             new HTMLInlineCSSWebpackPlugin.default(),
             new webpack.DefinePlugin({
@@ -56,6 +57,7 @@ const prodConfig = (version, dirname, extraContent) => {
             new InjectManifest({
                 swDest: "sw.js",
                 swSrc: path.resolve(depsDirname, "../sw.js"),
+                maximumFileSizeToCacheInBytes: 5000000,
                 exclude: [
                     /index\.html$/,
                     /CNAME$/,

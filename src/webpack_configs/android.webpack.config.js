@@ -9,54 +9,59 @@ import CopyPlugin from "copy-webpack-plugin";
 import webpack from "webpack";
 
 
-const aConfig = (dirname) => ({
+const aConfig = (dirname, extraContent) => {
+    const additionCopy = extraContent || [];
+    return {
 
-    entry: {main: ["./src/index.js", "./src/css/style.css"]},
-    output: {
-        path: path.resolve(dirname, "../android/app/src/main/assets/www"),
-        filename: "[name].[contenthash].js",
-        clean: true
-    },
-    module: {
-        rules: [
-            {
-                test: /\.css$/i,
-                use: [{
-                    loader: MiniCssExtractPlugin.loader
-                }, "css-loader"],
-            }
-        ]
-    },
-    optimization: {
-        minimizer: [new TerserJSPlugin({
-            terserOptions: {
-                mangle: true,
-                compress: {
-                    drop_console: true
+        entry: {main: ["./src/index.js", "./src/css/style.css"]},
+        output: {
+            path: path.resolve(dirname, "../android/app/src/main/assets/www"),
+                filename: "[name].[contenthash].js",
+                clean: true
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.css$/i,
+                    use: [{
+                        loader: MiniCssExtractPlugin.loader
+                    }, "css-loader"],
                 }
-            }
-        }), new CssMinimizerPlugin()],
-    },
-    plugins: [
-        new HTMLInlineCSSWebpackPlugin.default(),
-        new HtmlWebpackPlugin({
-            template: "./src/index.html",
-            minify: false
-        }),
-        new MiniCssExtractPlugin({
-            filename: "[name].[contenthash].css"
-        }),
-        new webpack.DefinePlugin({
-            __USE_SERVICE_WORKERS__: false
-        }),
-        new CopyPlugin({
-            patterns: [
-                { from: "./src/images", to: "./images" },
-                { from: "./src/app.webmanifest", to: "./" },
-                { from: "./.well-known", to: "./well-known" }
-            ],
-        })
-    ]
-});
+            ]
+        },
+        optimization: {
+            minimizer: [new TerserJSPlugin({
+                terserOptions: {
+                    mangle: true,
+                    compress: {
+                        drop_console: true
+                    }
+                }
+            }), new CssMinimizerPlugin()],
+        },
+        plugins: [
+            new HTMLInlineCSSWebpackPlugin.default(),
+            new HtmlWebpackPlugin({
+                minify: false,
+                scriptLoading: "module",
+                template: "./src/index.html"
+            }),
+            new MiniCssExtractPlugin({
+                filename: "[name].[contenthash].css"
+            }),
+            new webpack.DefinePlugin({
+                __USE_SERVICE_WORKERS__: false
+            }),
+            new CopyPlugin({
+                patterns: [
+                    { from: "./src/images", to: "./images" },
+                    { from: "./src/app.webmanifest", to: "./" },
+                    { from: "./.well-known", to: "./well-known" },
+                    ...additionCopy
+                ],
+            })
+        ]
+    }
+};
 
 export default aConfig;
