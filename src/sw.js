@@ -1,7 +1,7 @@
 /* eslint-env serviceworker */
 
 const version = __SERVICE_WORKER_VERSION__;
-const CACHE = "cache-only-" + version;
+const CACHE = "cache-only-dev-" + version;
 
 self.addEventListener("install", (evt) => {
     evt.waitUntil(precache().then(() => self.skipWaiting()));
