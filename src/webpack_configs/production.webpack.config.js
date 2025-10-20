@@ -17,8 +17,8 @@ const prodConfig = (version, dirname, extraContent) => {
         entry: {main: ["./src/index.js", "./src/css/style.css"]},
         output: {
             path: path.resolve(dirname, "../docs"),
-                filename: "[name].[contenthash].js",
-                clean: true
+            filename: "[name].[contenthash].js",
+            clean: true
         },
         module: {
             rules: [
@@ -76,7 +76,7 @@ const prodConfig = (version, dirname, extraContent) => {
                 ],
             })
         ]
-    }
+    };
 };
 
 export default prodConfig;

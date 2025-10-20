@@ -16,8 +16,8 @@ const aConfig = (dirname, extraContent) => {
         entry: {main: ["./src/index.js", "./src/css/style.css"]},
         output: {
             path: path.resolve(dirname, "../android/app/src/main/assets/www"),
-                filename: "[name].[contenthash].js",
-                clean: true
+            filename: "[name].[contenthash].js",
+            clean: true
         },
         module: {
             rules: [
@@ -61,7 +61,7 @@ const aConfig = (dirname, extraContent) => {
                 ],
             })
         ]
-    }
+    };
 };
 
 export default aConfig;
