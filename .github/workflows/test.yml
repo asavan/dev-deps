@@ -1,6 +1,8 @@
 name: test
 
 on:
+  # Allow run from other workflows
+  workflow_call:
   # Runs on pushes targeting the default branch
   push:
     branches: ["master"]
