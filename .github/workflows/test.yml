@@ -12,12 +12,6 @@ on:
 permissions:
   contents: read
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -28,7 +22,9 @@ jobs:
         uses: actions/setup-node@v5
         with:
           node-version: 24
+          cache: 'npm'
+          cache-dependency-path: ./package.json
       - run: npm i
       - run: npm run style
-      - run: npm run style4
+      - run: npm run style2
       - run: npm run test
