@@ -17,9 +17,8 @@ const deleteCache = async (key) => {
 };
 
 const deleteOldCaches = async () => {
-    const cacheKeepList = [CACHE];
     const keyList = await caches.keys();
-    const cachesToDelete = keyList.filter((key) => !cacheKeepList.includes(key));
+    const cachesToDelete = keyList.filter((key) => CACHE !== key);
     await Promise.all(cachesToDelete.map(deleteCache));
 };
 
@@ -48,7 +47,7 @@ function networkOrCache(request) {
 }
 
 self.addEventListener("install", (evt) => {
-    evt.waitUntil(precache());
+    evt.waitUntil(precache().then(() => self.skipWaiting()));
 });
 
 self.addEventListener("activate", (event) => {
