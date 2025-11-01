@@ -1,11 +1,16 @@
 /* eslint-env serviceworker */
 
 const version = __SERVICE_WORKER_VERSION__;
-const CACHE = "cache-only-dev-" + version;
+const CACHE = "cache-only-" + version;
 
-self.addEventListener("install", (evt) => {
-    evt.waitUntil(precache().then(() => self.skipWaiting()));
-});
+async function precache() {
+    const filesToCache = self.__WB_MANIFEST.map((e) => e.url);
+    const cache = await caches.open(CACHE);
+    return await cache.addAll([
+        "./",
+        ...filesToCache
+    ]);
+}
 
 const deleteCache = async (key) => {
     await caches.delete(key);
@@ -23,13 +28,14 @@ const deleteAndClaim = async () => {
     await self.clients.claim();
 };
 
-self.addEventListener("activate", (event) => {
-    event.waitUntil(deleteAndClaim());
-});
-
-self.addEventListener("fetch", (evt) => {
-    evt.respondWith(networkOrCache(evt.request));
-});
+async function fromCache(request) {
+    const cache = await caches.open(CACHE);
+    const matching = await cache.match(request, { ignoreSearch: true });
+    if (matching) {
+        return matching;
+    }
+    throw new Error("request-not-in-cache");
+}
 
 function networkOrCache(request) {
     return fetch(request).then((response) => {
@@ -41,20 +47,14 @@ function networkOrCache(request) {
         .catch(() => fromCache(request));
 }
 
-async function fromCache(request) {
-    const cache = await caches.open(CACHE);
-    const matching = await cache.match(request, { ignoreSearch: true });
-    if (matching) {
-        return matching;
-    }
-    throw new Error("request-not-in-cache");
-}
+self.addEventListener("install", (evt) => {
+    evt.waitUntil(precache());
+});
 
-const filesToCache = self.__WB_MANIFEST.map((e) => e.url);
-async function precache() {
-    const cache = await caches.open(CACHE);
-    return await cache.addAll([
-        "./",
-        ...filesToCache
-    ]);
-}
+self.addEventListener("activate", (event) => {
+    event.waitUntil(deleteAndClaim());
+});
+
+self.addEventListener("fetch", (evt) => {
+    evt.respondWith(networkOrCache(evt.request));
+});
