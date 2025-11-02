@@ -24,9 +24,12 @@ const prodConfig = (version, dirname, extraContent) => {
             rules: [
                 {
                     test: /\.css$/i,
-                    use: [{
-                        loader: MiniCssExtractPlugin.loader
-                    }, "css-loader"],
+                    use: [MiniCssExtractPlugin.loader, {
+                        loader: "css-loader",
+                        options: {
+                            url: false
+                        }
+                    }],
                 }
             ]
         },
