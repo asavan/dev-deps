@@ -1,6 +1,6 @@
 {
   "name": "dev-deps",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "dev-deps",
   "main": "index.js",
   "module": "index.js",
