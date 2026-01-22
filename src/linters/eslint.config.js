@@ -8,7 +8,7 @@ export default [
         files: ["src/**/*.js", "tests/**/*.js"],
         ignores: ["src/js/lib/*", "src/js/connection/supabase_settings.js"],
         languageOptions: {
-            ecmaVersion: 2024,
+            ecmaVersion: "latest",
             sourceType: "module",
             globals: {
                 ...globals.browser,
