@@ -1,5 +1,3 @@
-/* eslint-env serviceworker */
-
 const version = __SERVICE_WORKER_VERSION__;
 const CACHE = "cache-only-" + version;
 
