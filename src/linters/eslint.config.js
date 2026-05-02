@@ -20,7 +20,7 @@ export default [
     },
     {
         plugins: {
-            " @stylistic": stylistic
+            "@stylistic": stylistic
         },
         files: ["src/**/*.js", "tests/**/*.js"],
         ignores: ["src/js/lib/*", "src/js/connection/supabase_settings.js"],
@@ -34,33 +34,33 @@ export default [
             "brace-style": ["error", "1tbs"],
             "arrow-body-style": ["error"],
             "space-before-blocks": ["error", "always"],
-            " @stylistic/indent": [
+            "@stylistic/indent": [
                 "error",
                 4,
                 { "SwitchCase": 0 }
             ],
-            " @stylistic/linebreak-style": [
+            "@stylistic/linebreak-style": [
                 "error",
                 "windows"
             ],
-            " @stylistic/quotes": [
+            "@stylistic/quotes": [
                 "error",
                 "double"
             ],
-            " @stylistic/semi": [
+            "@stylistic/semi": [
                 "error",
                 "always"
             ],
-            " @stylistic/no-extra-semi": ["error"],
-            " @stylistic/keyword-spacing": ["error"],
-            " @stylistic/semi-spacing": ["error"],
-            " @stylistic/no-trailing-spaces": ["error"],
-            " @stylistic/no-tabs": ["error"],
-            " @stylistic/max-len": ["error", {"code": 120}],
-            " @stylistic/no-whitespace-before-property": ["error"],
-            " @stylistic/no-mixed-spaces-and-tabs": ["error"],
-            " @stylistic/comma-spacing": ["error"],
-            " @stylistic/no-multi-spaces": ["error"]
+            "@stylistic/no-extra-semi": ["error"],
+            "@stylistic/keyword-spacing": ["error"],
+            "@stylistic/semi-spacing": ["error"],
+            "@stylistic/no-trailing-spaces": ["error"],
+            "@stylistic/no-tabs": ["error"],
+            "@stylistic/max-len": ["error", {"code": 120}],
+            "@stylistic/no-whitespace-before-property": ["error"],
+            "@stylistic/no-mixed-spaces-and-tabs": ["error"],
+            "@stylistic/comma-spacing": ["error"],
+            "@stylistic/no-multi-spaces": ["error"]
         }
     },
     {
