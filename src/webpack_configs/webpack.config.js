@@ -4,6 +4,8 @@ import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import CopyPlugin from "copy-webpack-plugin";
 import webpack from "webpack";
 
+import {wsServerOnServer} from "../devtools/ws-server.js";
+
 function getLocalExternalIP(defaultAddr) {
     let cand = Object.values(os.networkInterfaces())
         .flat()
@@ -19,10 +21,23 @@ function getLocalExternalIP(defaultAddr) {
     return cand.slice(-1)[0];
 }
 
-const devConfig = (extraContent) => {
+const devConfig = (extraContent, settings) => {
     console.log(getLocalExternalIP("0.0.0.0"));
     const addr = "0.0.0.0";
     const additionCopy = extraContent || [];
+    const devServer= {
+        compress: true,
+        port: 8080,
+        hot: true,
+        open: true,
+        host: addr
+    };
+    if (settings.wsPath) {
+        devServer.port = settings.wsPort;
+        devServer.onListening = (ds) => {
+            wsServerOnServer(ds.server, settings.wsPath);
+        }
+    }
     return {
         entry: {main: ["./src/index.js", "./src/css/style.css"]},
         module: {
@@ -59,13 +74,7 @@ const devConfig = (extraContent) => {
                 ],
             })
         ],
-        devServer: {
-            compress: true,
-            port: 8080,
-            hot: true,
-            open: true,
-            host: addr
-        }
+        devServer: devServer
     };
 };
 
