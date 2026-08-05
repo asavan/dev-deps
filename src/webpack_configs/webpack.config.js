@@ -36,7 +36,7 @@ const devConfig = (extraContent, settings) => {
         devServer.port = settings.wsPort;
         devServer.onListening = (ds) => {
             wsServerOnServer(ds.server, settings.wsPath);
-        }
+        };
     }
     return {
         entry: {main: ["./src/index.js", "./src/css/style.css"]},

@@ -32,17 +32,17 @@ export function wsServerOnServer(server, path) {
     const wss = new WebSocketServer({ noServer: true });
 
     // 3. Intercept the HTTP 'upgrade' event manually
-    server.on('upgrade', (request, socket, head) => {
+    server.on("upgrade", (request, socket, head) => {
 
         // 4. Delegate path routing safely
         // Keep '/ws' clear so Webpack's internal HMR engine doesn't break
         if (request.url === path) {
             wss.handleUpgrade(request, socket, head, (ws) => {
-                wss.emit('connection', ws, request);
+                wss.emit("connection", ws, request);
             });
         }
         // Let webPack-dev-server automatically handle its own paths (/ws)
     });
-    wss.on('connection', onConnection(wss.clients));
-    console.log('Custom WebSocket Server attached safely to Webpack Dev Server.');
+    wss.on("connection", onConnection(wss.clients));
+    console.log("Custom WebSocket Server attached safely to Webpack Dev Server.");
 }
