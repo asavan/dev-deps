@@ -32,8 +32,8 @@ const devConfig = (extraContent, settings) => {
         open: true,
         host: addr
     };
-    if (settings.wsPath) {
-        devServer.port = settings.wsPort;
+    if (settings && settings.wsPath) {
+        devServer.port = settings.wsPort || devServer.port;
         devServer.onListening = (ds) => {
             wsServerOnServer(ds.server, settings.wsPath);
         };
