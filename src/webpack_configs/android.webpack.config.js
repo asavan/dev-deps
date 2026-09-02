@@ -59,7 +59,7 @@ const aConfig = (dirname, extraContent) => {
                 patterns: [
                     { from: "./src/images", to: "./images" },
                     { from: "./src/app.webmanifest", to: "./" },
-                    { from: "./.well-known", to: "./well-known" },
+                    { from: "./.well-known", to: "./.well-known" },
                     ...additionCopy
                 ],
             })

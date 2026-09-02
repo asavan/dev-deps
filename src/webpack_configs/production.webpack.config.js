@@ -72,9 +72,9 @@ const prodConfig = (version, dirname, extraContent) => {
             new CopyPlugin({
                 patterns: [
                     { from: "./src/images", to: "./images" },
-                    { from: path.resolve(depsDirname, "../../github"), to: "./" },
                     { from: "./src/app.webmanifest", to: "./" },
                     { from: "./.well-known", to: "./.well-known" },
+                    { from: path.resolve(depsDirname, "../../github"), to: "./" },
                     ...additionCopy
                 ],
             })

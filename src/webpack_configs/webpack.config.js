@@ -22,12 +22,14 @@ function getLocalExternalIP(defaultAddr) {
 }
 
 const devConfig = (extraContent, settings) => {
-    console.log(getLocalExternalIP("0.0.0.0"));
-    const addr = "0.0.0.0";
+    const resolved_addr = getLocalExternalIP("0.0.0.0");
+    console.log(resolved_addr);
+    const addr = resolved_addr || "0.0.0.0";
     const additionCopy = extraContent || [];
     const devServer= {
         compress: true,
         port: 8080,
+        allowedHosts: "all",
         hot: true,
         open: true,
         host: addr
