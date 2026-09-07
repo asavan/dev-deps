@@ -4,7 +4,7 @@ const CACHE = "cache-only-" + version;
 async function precache() {
     const filesToCache = self.__WB_MANIFEST.map((e) => e.url);
     const cache = await caches.open(CACHE);
-    return await cache.addAll([
+    await cache.addAll([
         "./",
         ...filesToCache
     ]);
@@ -30,6 +30,10 @@ async function fromCache(request) {
     const matching = await cache.match(request, { ignoreSearch: true });
     if (matching) {
         return matching;
+    }
+    // https://github.com/externalmemory/qarttext/blob/main/sw.js
+    if (request.mode === "navigate") {
+        return caches.match("./index.html");
     }
     throw new Error("request-not-in-cache");
 }

@@ -62,7 +62,6 @@ const prodConfig = (version, dirname, extraContent) => {
                 swSrc: path.resolve(depsDirname, "../sw.js"),
                 maximumFileSizeToCacheInBytes: 5000000,
                 exclude: [
-                    /index\.html$/,
                     /CNAME$/,
                     /\.nojekyll$/,
                     /_config\.yml$/,
