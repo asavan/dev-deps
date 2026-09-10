@@ -1,5 +1,6 @@
 const version = __SERVICE_WORKER_VERSION__;
-const CACHE = "cache-only-" + version;
+const SCOPE = self.registration.scope;
+const CACHE = SCOPE + "-cache-only-" + version;
 
 async function precache() {
     const filesToCache = self.__WB_MANIFEST.map((e) => e.url);
@@ -16,7 +17,7 @@ const deleteCache = async (key) => {
 
 const deleteOldCaches = async () => {
     const keyList = await caches.keys();
-    const cachesToDelete = keyList.filter((key) => CACHE !== key);
+    const cachesToDelete = keyList.filter((key) => key.startsWith(SCOPE) && CACHE !== key);
     await Promise.all(cachesToDelete.map(deleteCache));
 };
 
