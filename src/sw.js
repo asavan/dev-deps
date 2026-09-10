@@ -28,7 +28,11 @@ const deleteAndClaim = async () => {
 
 async function fromCache(request) {
     const cache = await caches.open(CACHE);
-    const matching = await cache.match(request, { ignoreSearch: true });
+    const matching = await cache.match(request.url,
+        {
+            ignoreSearch: true,
+            ignoreVary: true,
+        });
     if (matching) {
         return matching;
     }
