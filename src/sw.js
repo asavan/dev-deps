@@ -11,13 +11,11 @@ async function precache() {
     ]);
 }
 
-const deleteCache = async (key) => {
-    await caches.delete(key);
-};
-
 const deleteOldCaches = async () => {
     const keyList = await caches.keys();
-    const cachesToDelete = keyList.filter((key) => key.startsWith(SCOPE) && CACHE !== key);
+    const toSave = (key) => key.startsWith(SCOPE) && CACHE !== key;
+    const cachesToDelete = keyList.filter(toSave);
+    const deleteCache = (key) => caches.delete(key);
     await Promise.all(cachesToDelete.map(deleteCache));
 };
 
