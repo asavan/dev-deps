@@ -23,16 +23,26 @@ function getLocalExternalIP(defaultAddr) {
     return cand.slice(-1)[0];
 }
 
+function getHostUrl(ip, port) {
+    return "http://" + ip + ":" + port;
+}
+
 const devConfig = (extraContent, settings) => {
     const resolved_addr = getLocalExternalIP(SERVER_WILDCARD);
     console.log(resolved_addr);
     const additionCopy = extraContent || [];
-    const devServer= {
+    const port = 8080;
+    const shUrl = getHostUrl(resolved_addr, port);
+    const params = {
+        sh : shUrl
+    };
+    const paramsQuery = new URLSearchParams(params).toString();
+    const devServer = {
         compress: true,
-        port: 8080,
+        port: port,
         allowedHosts: "all",
         hot: true,
-        open: true,
+        open: `/?${paramsQuery}`,
         host: SERVER_WILDCARD
     };
     if (settings && settings.wsPath) {
@@ -70,9 +80,9 @@ const devConfig = (extraContent, settings) => {
             }),
             new CopyPlugin({
                 patterns: [
-                    { from: "./src/images", to: "./images" },
-                    { from: "./src/app.webmanifest", to: "./" },
-                    { from: "./.well-known", to: "./.well-known" },
+                    {from: "./src/images", to: "./images"},
+                    {from: "./src/app.webmanifest", to: "./"},
+                    {from: "./.well-known", to: "./.well-known"},
                     ...additionCopy
                 ],
             })
