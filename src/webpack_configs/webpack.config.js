@@ -6,6 +6,8 @@ import webpack from "webpack";
 
 import {wsServerOnServer} from "../devtools/ws-server.js";
 
+const SERVER_WILDCARD = "0.0.0.0";
+
 function getLocalExternalIP(defaultAddr) {
     let cand = Object.values(os.networkInterfaces())
         .flat()
@@ -22,9 +24,8 @@ function getLocalExternalIP(defaultAddr) {
 }
 
 const devConfig = (extraContent, settings) => {
-    const resolved_addr = getLocalExternalIP("0.0.0.0");
+    const resolved_addr = getLocalExternalIP(SERVER_WILDCARD);
     console.log(resolved_addr);
-    const addr = resolved_addr || "0.0.0.0";
     const additionCopy = extraContent || [];
     const devServer= {
         compress: true,
@@ -32,7 +33,7 @@ const devConfig = (extraContent, settings) => {
         allowedHosts: "all",
         hot: true,
         open: true,
-        host: addr
+        host: SERVER_WILDCARD
     };
     if (settings && settings.wsPath) {
         devServer.port = settings.wsPort || devServer.port;
